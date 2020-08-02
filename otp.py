@@ -1,23 +1,25 @@
-def encrypt(message):
-    return None
+def popkey(length, keyfile):
+    key = bytearray()
+    with open(keyfile, "rb") as file:
+        key = file.read()
+    key = key[length:]
+    with open(keyfile, "wb") as file:
+        file.write(key)
 
 
-def main():
-    k = input("Enter keyfile name: ")
-    m = input("Enter message: ")
-    print("Encrypted: ", encrypt(m))
-
-    """
-    pt = b'hejhej'
-    with open(key_file_name, "rb") as test:
-        bs = test.read()
-        print(type(bs), type(pt))
-        ct = b''.join([bytes([i ^ j]) for i, j in zip(pt, bs[:len(pt)])])
-        print("ct", ct, type(ct))
-        dt = ''.join([chr(i ^ j) for i, j in zip(ct, bs[:len(ct)])])
-        print("dt", dt)
-    """
+def encrypt(message, keyfile):
+    with open(keyfile, "rb") as file:
+        key = file.read()
+        ciphertext = b''.join([bytes([i ^ j])
+                               for i, j in zip(message, key[:len(message)])])
+    popkey(len(message), keyfile)
+    return ciphertext
 
 
-if __name__ == "__main__":
-    main()
+def decrypt(ciphertext, keyfile):
+    with open(keyfile, "rb") as file:
+        key = file.read()
+        plaintext = ''.join([chr(i ^ j)
+                             for i, j in zip(ciphertext, key[:len(ciphertext)])])
+    popkey(len(ciphertext), keyfile)
+    return plaintext
