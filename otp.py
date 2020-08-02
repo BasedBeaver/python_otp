@@ -2,20 +2,21 @@ def encrypt(message):
     return None
 
 
-def string_to_bits(s):
-    result = []
-    for c in s:
-        bits = bin(ord(c))[2:]
-        bits = '00000000'[len(bits):] + bits
-        result.extend([int(b) for b in bits])
-    return result
-
-
 def main():
     k = input("Enter keyfile name: ")
     m = input("Enter message: ")
-    bits = string_to_bits(m)
     print("Encrypted: ", encrypt(m))
+
+    """
+    pt = b'hejhej'
+    with open(key_file_name, "rb") as test:
+        bs = test.read()
+        print(type(bs), type(pt))
+        ct = b''.join([bytes([i ^ j]) for i, j in zip(pt, bs[:len(pt)])])
+        print("ct", ct, type(ct))
+        dt = ''.join([chr(i ^ j) for i, j in zip(ct, bs[:len(ct)])])
+        print("dt", dt)
+    """
 
 
 if __name__ == "__main__":

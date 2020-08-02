@@ -7,12 +7,13 @@ def keygen():
     key_len = int(sys.argv[2])
     if not key_file_name[-4:] == ".txt":
         key_file_name = key_file_name + ".txt"
-    hex_key = secrets.token_hex(key_len)
-    bit_len = len(hex_key)*4
-    bit_key = str(bin(int(hex_key, 16)))[2:].zfill(bit_len)
-    key_file = open(key_file_name, "w")
-    key_file.write(bit_key)
+
+    key = secrets.token_bytes(key_len)
+
+    key_file = open(key_file_name, "wb")
+    key_file.write(key)
     key_file.close()
+
     print("Key generated!")
 
 
