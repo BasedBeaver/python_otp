@@ -7,12 +7,12 @@ def popkey(length, keyfile):
         file.write(key)
 
 
-def encrypt(message, keyfile):
+def encrypt(plaintext, keyfile):
     with open(keyfile, "rb") as file:
         key = file.read()
         ciphertext = b''.join([bytes([i ^ j])
-                               for i, j in zip(message, key[:len(message)])])
-    popkey(len(message), keyfile)
+                               for i, j in zip(plaintext, key[:len(message)])])
+    popkey(len(plaintext), keyfile)
     return ciphertext
 
 
