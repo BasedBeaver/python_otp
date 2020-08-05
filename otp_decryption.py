@@ -10,7 +10,7 @@ def main():
     file.close()
 
     plaintext = otp.decrypt(ciphertext, key)
-    print("Decrypted: ", plaintext)
+    print("Decrypted: ", plaintext.decode("utf-8"))
 
 
 if __name__ == "__main__":

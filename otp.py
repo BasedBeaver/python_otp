@@ -11,7 +11,7 @@ def encrypt(plaintext, keyfile):
     with open(keyfile, "rb") as file:
         key = file.read()
         ciphertext = b''.join([bytes([i ^ j])
-                               for i, j in zip(plaintext, key[:len(message)])])
+                               for i, j in zip(plaintext, key[:len(plaintext)])])
     popkey(len(plaintext), keyfile)
     return ciphertext
 
@@ -19,7 +19,7 @@ def encrypt(plaintext, keyfile):
 def decrypt(ciphertext, keyfile):
     with open(keyfile, "rb") as file:
         key = file.read()
-        plaintext = ''.join([chr(i ^ j)
+        plaintext = b''.join([bytes([i ^ j])
                              for i, j in zip(ciphertext, key[:len(ciphertext)])])
     popkey(len(ciphertext), keyfile)
     return plaintext
